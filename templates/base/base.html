@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ShopName</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    {% block css %}{% endblock %}
+    {% block customJS %}{% endblock %}
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+      
+          <a class="navbar-brand" href="{% url 'index'%}">{% block title %}Panda Base{% endblock %}</a>
+          <ul class="navbar-nav me-right">
+          {% block NavButton %}{% endblock %}
+            </ul>
+        </div>
+      </nav>
+</header>
+<body>
+{% block content %}
+{% endblock %}
+</body>
+<footer class="text-center">
+    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
+        </div>
+</footer>
+</html>

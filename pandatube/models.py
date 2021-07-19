@@ -24,20 +24,20 @@ class Profile(models.Model):
     bio = models.CharField(max_length= 200, )
     def __str__(self):
         return self.user.get_username()
-
-class CourseTag(models.Model):
-    course_id = models.AutoField(primary_key= True)
-    course_tag = models.CharField(max_length=50, unique=True)
-    course_num = models.IntegerField(null= False)
-    
-    def __str__(self):
-        return self.course_tag
-
 class CourseName(models.Model):
-    course_name = models.CharField(max_length=50)
+    course_name = models.CharField(max_length=50, unique= True)
 
     def __str__(self):
         return self.course_name
+class CourseTag(models.Model):
+    course_id = models.AutoField(primary_key= True)
+    course_tag = models.ForeignKey(CourseName,on_delete= models.PROTECT)
+    course_num = models.IntegerField(null= False)
+    
+    def __str__(self):
+        return str(self.course_tag)
+
+
 
 
 def video_path(instance,filename):

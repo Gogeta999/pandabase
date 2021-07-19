@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index'%}">Panda Base</a>
             <ul class="navbar-nav me-right">
-                <li class="nav-item"><a class="nav-link">Test 1 </li>
+                <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/admin/">Test 1 </li>
                 {% comment %} {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'product-upload' %}">Upload Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">LogOut</a></li>
@@ -32,14 +33,32 @@
         </div>
     </nav>
 </header>
+<body>
+<div class="container-fluid">
+<video width='320' height= '240' controls>
+<source src="{{ MEDIA_URL }}course_videos/course001/test01.mp4" type='video/mp4'>
+Your browser does not support the video tag.
+</video>
+</div>
+<div class="card" style="width: 18rem;">
+  <img src="{{ STATIC_URL }}Asuka.jpg" class="card-img-top" alt="Asuka.jpg">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
 
-{% comment %} <footer class="fixed-bottom text-center">
-    <div class="position-absolute bottom-0 start-50 translate-middle-x">  <p>Copyright © InteOs Myanmar. All rights reserved.</p></div>
-        </div>
-</footer> {% endcomment %}
+
+
+
+
+
+</body>
+
 
 <footer class="text-center">
-    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
+    <nav class="navbar bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
         </div>
 </footer>
 

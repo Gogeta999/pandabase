@@ -5,6 +5,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='pandabase/', permanent=False), name='index'),
     path('admin/', admin.site.urls, name='admin'),
     path(r'pandabase/', include("pandatube.urls")),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
 
 # Use static() to add url mapping to serve static files during development (only)

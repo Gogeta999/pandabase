@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% comment %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %} {% endcomment %}
+{% block content %}
+<div class="container">
+  <div class="form-group">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3 row">
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Username" name="username">
+        </div>
+      </div>
+      <div class="mb-3 row">
+      </div>
+      <div class="col-sm-3">
+        <input type="password" class="form-control" placeholder="Password" name="password">
+      </div>
+  </div>
+  <br />
+  <button class="btn btn-secondary">Login</button>
+
+
+</div>
+</div>
+{% endblock %}

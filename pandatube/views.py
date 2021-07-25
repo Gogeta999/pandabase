@@ -44,25 +44,23 @@ class UserProfilePage(generic.DetailView):
     #     obj.save()
     #     return obj
 
-def courses(request, pk):
+def course(request, pk):
 
     videos = Video.objects.all()
-    # courses_list = PurchasedCourse.objects.all()
-    # courses_list = {'courses_list': courses_list}
-    return render(request, 'main/courses.html', videos)
+    return render(request, 'main/course.html', videos)
 
-class CoursesPage(generic.ListView):
+class CoursePage(generic.ListView):
     model = Video
-    template_name = 'main/courses.html'
+    template_name = 'main/course.html'
     def get_context_data(self, *args, **kwargs):
-        context = super(CoursesPage, self).get_context_data(*args, **kwargs)
+        context = super(CoursePage, self).get_context_data(*args, **kwargs)
         context['course_id'] = self.kwargs['pk']
         return context
     
 
 class CourseVideoPage(generic.DetailView):
     model = Video
-    template_name = 'main/courses.html'
+    template_name = 'main/course.html'
 
 class SearchVideosResultsPage(generic.ListView):
     model = Video

@@ -25,10 +25,6 @@
            {% if user.is_authenticated %}
           <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' user.pk%}">Profile</a>
-        </li>
-            <li class="nav-item">
-          <a class="nav-link" href="{% url 'courses' user.pk%}">Courses</a>
-        </li>
         {% comment %} Should not open for Regsiter Route for normal user {% endcomment %}
          {% comment %} <li class="nav-item">
           <a class="nav-link" href="h{% url 'signup' %}">SignUp</a>
@@ -64,7 +60,7 @@
   </div>
 </nav>
 
-
+  {% if user.is_authenticated %} 
 <div class="container-fluid">
 <h1>Name of purchased User is {{ user.username}}</h1>
 
@@ -73,23 +69,21 @@
   {% comment %} <img src="..." class="card-img-top" alt="..."> {% endcomment %}
   <div class="card-body">
     <h5 class="card-title">Purchase Course is  {{course.course_tag}}</h5>
-    <a href="{% url 'courses' course.course_num %}" class="btn btn-primary">Go {{course.course_num}}</a>
+    <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go {{course.course_num}}</a>
   </div>
 </div>
 
  {% endfor %}
-{% comment %} <video width='320' height= '240' controls>
-<source src="{{ MEDIA_URL }}course_videos/course001/test01.mp4" type='video/mp4'>
-Your browser does not support the video tag.
-</video> {% endcomment %}
 </div>
-{% comment %} <div class="card" style="width: 18rem;">
-  <img src="{{ STATIC_URL }}Asuka.jpg" class="card-img-top" alt="Asuka.jpg">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div> {% endcomment %}
+{% else %}
+<h1> For Not Login User</h1>
+<div class="container-fluid">
+<video width='320' height= '240' controls>
+<source src="{{ MEDIA_URL }}course_videos/course001/Welcome_to_Panda_Base_-_Google_Chrome_2021-07-18_22-01-38.mp4" type='video/mp4'>
+Your browser does not support the video tag.
+</video>
+</div>
+  {% endif %}
 </div>
 
 

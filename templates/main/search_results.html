@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+{% block title %}PandaBase{% endblock %}
+{% block content %}
+<div class='container-fluid'>
+  <div class="d-flex justify-content-center">
+    <h4>Video Results</h4>
+  </div>
+</div>
+
+  <ul>
+    {% for video in object_list %}
+    <div class='container-fluid'>
+      <div class="d-flex justify-content-center">
+        <!-- <li> -->
+          <a href="{{ video.get_absolute_url }}" method="get">{{ video.video_name}}</a>, 
+        <!-- </li> -->
+      </div>
+    </div>
+
+    {% endfor %}
+  </ul>
+{% endblock %}

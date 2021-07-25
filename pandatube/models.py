@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -56,10 +57,25 @@ class Video(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
-
+    
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this Video."""
+        return reverse('video', args=[str(self.video_id)])
+    # def get_file_path(self):
+    #     return video_path
     class Meta:
         ordering = ["-date_uploaded"]
 
     def __str__(self):
         return self.video_name
+
+class PurchasedCourse(models.Model):
+    user = models.OneToOneField(Profile,on_delete=models.PROTECT)
+    course = models.ManyToManyField(CourseTag,blank=True,related_name='courses')
+
+    # def course_names(self):
+    #     return ', '.join([a.course_names for a in self.course.all()])
+    # course_names.short_description = "Course Names"
+    def __str__(self):
+        return str(self.user) + '\'s Purchased Course'
     

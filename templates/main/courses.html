@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+{% comment %} 
+<h1>Hello  {{ user.username }}</h1>
+<h1>ID  {{ user.id }}</h1>
+<h1>Here is your course</h1> {% endcomment %}
+
+<h1>Name of purchased User is {{ user.username}}</h1>
+<h1>Purchase Course is {{ course_id }}</h1>
+<br>
+
+
+{% for video in object_list%}
+
+{% comment %} <h1>Here is Video Tag {{video.course_tag.all}}</h1>
+            <li>Video Name=========={{video.video_name}}</li>
+          <li>Video Url Gonna Be {{video.get_absolute_url}}</li> {% endcomment %}
+          {% for tag in video.course_tag.all%}
+          {% if course_id == tag.course_num %}
+          <li> Gonna Display video is {{tag}}</li>
+          <video width='320' height= '240' controls>
+<source src="{{video.video_file.url}}" type='video/mp4'>
+Your browser does not support the video tag.
+</video> 
+          {% endif%}
+          {% comment %} <li>Tag name is {{tag}}</li>
+            <li>Tag Num is {{tag.course_num}}</li> {% endcomment %}
+          {% endfor %}
+             <br>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Hello  {{ user.username }}</h1>
+<h1>ID  {{ user.id }}</h1>
+ {% comment %} Below Is User Profile Test {% endcomment %}
+   <h1>{{ object.nickname }}</h1>
+    <p>{{ object.email }}</p>
+    <h1>end for Profile</h1>
+
+    {% comment %} {% for course in object.course %}
+            <li>{{ course.course_tag }}</li>
+            <li>{{ course.course_num }}</li>
+            <li>End</li>
+        {% endfor %} {% endcomment %}
+{% endblock %}

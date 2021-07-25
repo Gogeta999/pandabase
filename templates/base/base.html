@@ -4,7 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ShopName</title>
+      
+    <title>
+    {% block title %}
+    PandaBase
+    {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <script src="{% static 'js/bootstrap.js' %}"></script>
     {% block css %}{% endblock %}
@@ -31,7 +35,9 @@
 {% endblock %}
 </body>
 <footer class="text-center">
-    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
+    {% block footer %}
+       <nav class="navbar bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
         </div>
+    {% endblock %}</title>
 </footer>
 </html>

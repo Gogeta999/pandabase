@@ -19,11 +19,13 @@
           <li>Video Url Gonna Be {{video.get_absolute_url}}</li> {% endcomment %}
           {% for tag in video.course_tag.all%}
           {% if course_id == tag.course_num %}
-          <li> Gonna Display video is {{tag}}</li>
           <video width='320' height= '240' controls>
 <source src="{{video.video_file.url}}" type='video/mp4'>
 Your browser does not support the video tag.
 </video> 
+<h5>
+ <a href="{{ video.get_absolute_url }}" method="get">Video Name is{{ video.video_name}}</a>
+</h5>
           {% endif%}
           {% comment %} <li>Tag name is {{tag}}</li>
             <li>Tag Num is {{tag.course_num}}</li> {% endcomment %}

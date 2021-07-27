@@ -33,7 +33,7 @@ class CourseName(models.Model):
 class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
     course_tag = models.ForeignKey(CourseName,on_delete= models.PROTECT)
-    course_num = models.IntegerField(null= False)
+    course_num = models.IntegerField(null= False, unique= True)
     
     def __str__(self):
         return str(self.course_tag)

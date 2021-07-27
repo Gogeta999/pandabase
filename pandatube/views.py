@@ -60,7 +60,7 @@ class CoursePage(generic.ListView):
 
 class CourseVideoPage(generic.DetailView):
     model = Video
-    template_name = 'main/course.html'
+    template_name = 'main/course_video.html'
 
 class SearchVideosResultsPage(generic.ListView):
     model = Video

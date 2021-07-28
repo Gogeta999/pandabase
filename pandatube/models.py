@@ -30,11 +30,16 @@ class CourseName(models.Model):
 
     def __str__(self):
         return self.course_name
+
+
+def course_thumbnail_path(instance,filename):
+    ext = filename.split('.')[-1]
+    return os.path.join('course_thumbnail/',str(instance.course_tag),filename)
 class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
-    course_tag = models.ForeignKey(CourseName,on_delete= models.PROTECT)
+    course_tag = models.OneToOneField(CourseName,on_delete= models.PROTECT,unique=True)
     course_num = models.IntegerField(null= False, unique= True)
-    
+    course_thumbnail = models.FileField(upload_to= course_thumbnail_path,default='/default/default-course.jpg')
     def __str__(self):
         return str(self.course_tag)
 

@@ -6,14 +6,12 @@
 <h1>Hello  {{ user.username }}</h1>
 <h1>ID  {{ user.id }}</h1>
 <h1>Here is your course</h1> {% endcomment %}
-
-<h1>Name of purchased User is {{ user.username}}</h1>
-<h1>Purchase Course is {{ course_id }}</h1>
-<br>
-
-
+<div class="container">
+  <div class="row align-items-start">
 {% for video in object_list%}
 
+ <div class="col">
+  <a href="{{ video.get_absolute_url }}" method="get">
 {% comment %} <h1>Here is Video Tag {{video.course_tag.all}}</h1>
             <li>Video Name=========={{video.video_name}}</li>
           <li>Video Url Gonna Be {{video.get_absolute_url}}</li> {% endcomment %}
@@ -30,6 +28,20 @@ Your browser does not support the video tag.
           {% comment %} <li>Tag name is {{tag}}</li>
             <li>Tag Num is {{tag.course_num}}</li> {% endcomment %}
           {% endfor %}
-             <br>
+             </a>
+              </div>
+           
 {% endfor %}
+</div>
+</div>
 {% endblock %}
+
+
+{% block footer %} 
+<footer class="text-center">
+    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
+        </div>
+</footer>
+  </div>{% endblock %}
+
+

@@ -2,10 +2,20 @@
 {% load static %}
 
 {% block content %}
-<h1>Detail Show</h1>
-<h5>Name is {{object.video_name}}</h5>
-<video width='320' height= '240' controls>
+<div class="container-fluid">
+<div class="h-100 row align-items-center">
+<video width='720' height= '720' controls>
+
 <source src="{{video.video_file.url}}" type='video/mp4'>
 Your browser does not support the video tag.
-</video> 
+</video>
+</div>
+</div>
 {% endblock %}
+
+{% block footer %} 
+<footer class="text-center">
+    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
+        </div>
+</footer>
+  </div>{% endblock %}

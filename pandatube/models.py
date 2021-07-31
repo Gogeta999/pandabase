@@ -48,7 +48,11 @@ class CourseTag(models.Model):
 
 def video_path(instance,filename):
     ext = filename.split('.')[-1]
-    return os.path.join('course_videos/',instance.course_name.course_name,filename)
+    return os.path.join('course_videos/',instance.course_name.course_name, filename)
+
+def video_thumbnails_path(instance,filename):
+    ext = filename.split('.')[-1]
+    return os.path.join('course_videos/',instance.course_name.course_name, 'thumbnails/',filename)
 
 class Video(models.Model):
     video_id = models.AutoField(primary_key= True)
@@ -57,6 +61,7 @@ class Video(models.Model):
     video_name = models.CharField(max_length=50)
     course_tag = models.ManyToManyField(CourseTag, blank= False)
     video_file = models.FileField(upload_to= video_path,blank=True,null=True,validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+    video_thumbnail = models.ImageField(upload_to = video_thumbnails_path, default = '/default/default-video.jpg')
     date_uploaded = models.DateTimeField(default=timezone.now)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
@@ -73,6 +78,7 @@ class Video(models.Model):
 
     def __str__(self):
         return self.video_name
+
 
 class PurchasedCourse(models.Model):
     user = models.OneToOneField(Profile,on_delete=models.PROTECT)

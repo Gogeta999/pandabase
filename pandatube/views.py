@@ -1,16 +1,16 @@
 from django.db import models
-from django.http import request
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.views.generic import FormView, TemplateView
 from django.views.generic.detail import DetailView
-from .models import Video, User, Profile, PurchasedCourse
+from .models import CourseTag, Video, User, Profile, PurchasedCourse
 from django.urls import reverse_lazy
 from .forms import  SearchVideosForm
 from django.utils import timezone
 from django.db.models import Q
 from django.urls import resolve
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 class Index(DetailView, FormView):
     template_name = 'main/index.html'
     form_class = SearchVideosForm
@@ -21,7 +21,10 @@ class Index(DetailView, FormView):
             return PurchasedCourse.objects.last()
         return super(Index, self).get_object()
 
-
+    def get_context_data(self, *args, **kwargs):
+        context = super(Index, self).get_context_data(*args, **kwargs)
+        context['demo_videos'] = Video.objects.all()
+        return context
 
 #Use Login From auth.accounts
 # class UserLoginPage(TemplateView):
@@ -37,17 +40,6 @@ class Index(DetailView, FormView):
 class UserProfilePage(generic.DetailView):
     model = Profile    
     template_name = 'main/profile.html'
-    # def get_object(self):
-    #     obj = super().get_object()
-    #     # Record the last accessed date
-    #     obj.last_accessed = timezone.now()
-    #     obj.save()
-    #     return obj
-
-def course(request, pk):
-
-    videos = Video.objects.all()
-    return render(request, 'main/course.html', videos)
 
 class CoursePage(generic.ListView):
     model = Video
@@ -58,9 +50,44 @@ class CoursePage(generic.ListView):
         return context
     
 
-class CourseVideoPage(generic.DetailView):
+# class CourseVideoPage(generic.DetailView):
+#     model = Video
+#     template_name = 'main/course_video.html'
+#     def get_context_data(self, **kwargs):
+#         context = super(CourseVideoPage, self).get_context_data(**kwargs)
+#         context['courses'] = PurchasedCourse.objects.all()
+#         return context
+  
+def courseVideoPage(request, pk):
+    video = get_object_or_404(Video, pk=pk)
+    # video = Video.objects.get(pk = pk)
+    # context["valid"] = tag
+    if request.user.is_authenticated:
+        purchasedCourse = PurchasedCourse.objects.get(user= request.user.profile)
+        video_tags = video.course_tag.all
+        purchasedCourse_tag = purchasedCourse.course.all
+        context ={}
+        context["video"] = video
+        context["courses"] = purchasedCourse
+        context["video_tags"] = video_tags
+        context["purchasedCourse_tag"] = purchasedCourse_tag
+        # if not video:
+        #     raise Http404("Does not exist")
+        return render(request, 'main/course_video.html', context)
+    else:
+        context ={}
+        context["video"] = video
+        return render(request, 'main/course_demo_video.html', context)
+
+class CourseDemoVideoPage(generic.DetailView):
     model = Video
-    template_name = 'main/course_video.html'
+    template_name = 'main/course_demo_video.html'
+    def get_context_data(self, **kwargs):
+        context = super(CourseDemoVideoPage, self).get_context_data(**kwargs)
+        context['courses'] = PurchasedCourse.objects.all()
+        return context
+
+    
 
 class SearchVideosResultsPage(generic.ListView):
     model = Video

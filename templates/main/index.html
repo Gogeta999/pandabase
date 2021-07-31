@@ -4,91 +4,114 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Welcome to Panda Base</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <meta charset="utf-8">
+  <title>Welcome to Panda Base</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
 </head>
-<body >
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<body class='pb-5'>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index'%}">PandaBase</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' user.pk%}">Profile</a>
+            {% comment %} Should not open for Regsiter Route for normal user {% endcomment %}
+            {% comment %}
+          <li class="nav-item">
+            <a class="nav-link" href="h{% url 'signup' %}">SignUp</a>
+          </li> {% endcomment %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          </li>
+          {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+        {% if user.is_authenticated %}
+        <form class="d-flex" action="{% url 'search_videos' %}" method="get">
+          {{form}}
+        </form>
+        {% else %}
+        <form class="d-flex">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  {% if user.is_authenticated %}
   <div class="container-fluid">
-   <a class="navbar-brand" href="{% url 'index'%}">Panda Base</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
-        </li>
-           {% if user.is_authenticated %}
-          <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' user.pk%}">Profile</a>
-        {% comment %} Should not open for Regsiter Route for normal user {% endcomment %}
-         {% comment %} <li class="nav-item">
-          <a class="nav-link" href="h{% url 'signup' %}">SignUp</a>
-        </li> {% endcomment %}
-          <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-        </li>
-           {% endif %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        
-      </ul>
-   
-        {% if user.is_authenticated %} 
-      <form class="d-flex" action="{% url 'search_videos' %}" method="get">
-         {{form}}
-      </form>
-         {% else %}
-           <form class="d-flex">
-        <a class="nav-link" href="{% url 'login' %}">Login</a>
-      </form>
-           {% endif %}
+    <h1>Name of purchased User is {{ user.username}}</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      
+      {% for course in object.course.all%}
+      <div class="col">
+        <div class="card h-50">
+          <img src="{{course.course_thumbnail.url}}" class="card-img-top" alt="{{STATIC_URL}}default/default-course.jpg">
+          <div class="card-body">
+            <h5 class="card-title">Purchase Course is {{course.course_tag}}</h5>
+            <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go {{course.course_num}}</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
-</nav>
 
-  {% if user.is_authenticated %} 
-<div class="container-fluid">
-<h1>Name of purchased User is {{ user.username}}</h1>
-{% comment %} <div class="container"> {% endcomment %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
-{% for course in object.course.all%}
- <div class="col">
-    <div class="card h-50">
-  <img src="{{course.course_thumbnail.url}}" class="card-img-top" alt="{{MEDIA_URL}}default/default-course.jpg">
-  <div class="card-body">
-    <h5 class="card-title">Purchase Course is  {{course.course_tag}}</h5>
-    <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go {{course.course_num}}</a>
+  {% else %}
+ <div class="container">
+  <div class="row align-items-start">
+      
+      {% for video in demo_videos%}
+     <div class="col">
+        <a href="{{ video.get_absolute_url }}" method="get">
+          {% for tag in video.course_tag.all%}
+          {% if tag.course_num == 0  %}
+          <video width='320' height='240' controls>
+            <source src="{{video.video_file.url}}" type='video/mp4'>
+            Your browser does not support the video tag.
+          </video>
+          <h4>
+            Video Name is {{ video.video_name}}
+          </h4>
+          {% endif%}
+          {% endfor %}
+        </a>
+      </div>
+      {% endfor %}
+    
+    </div>
   </div>
-</div>
- </div>
- {% endfor %}
- </div>
- {% comment %} </div> {% endcomment %}
-</div>
-{% else %}
-<h1> For Not Login User</h1>
-<div class="container-fluid">
-<video width='320' height= '240' controls>
-<source src="{{ MEDIA_URL }}course_videos/course001/Welcome_to_Panda_Base_-_Google_Chrome_2021-07-18_22-01-38.mp4" type='video/mp4'>
-Your browser does not support the video tag.
-</video>
-</div>
   {% endif %}
-</div>
+
 
 
 
@@ -99,8 +122,10 @@ Your browser does not support the video tag.
 
 
 <footer class="text-center">
-    <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
-        </div>
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+    <p>Copyright ©Panda Base Myanmar. All rights reserved.</p>
+    </div>
+    </div>
 </footer>
 
 </html>

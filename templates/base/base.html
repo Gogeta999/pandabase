@@ -11,8 +11,10 @@
     {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block css %}{% endblock %}
-    {% block customJS %}{% endblock %}
+{% comment %} Video JS {% endcomment %}     
+  {% block customCSS %}{% endblock %}     
+    {% block videoJS %}{% endblock %}
+    {% block videoJSScript %}{% endblock %}
 </head>
 <body  class='pb-5'>
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -91,6 +91,7 @@
   <div class="row align-items-start">
       
       {% for video in demo_videos%}
+ 
      <div class="col">
         <a href="{{ video.get_absolute_url }}" method="get">
           {% for tag in video.course_tag.all%}

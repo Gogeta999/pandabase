@@ -1,13 +1,54 @@
 {% extends "base/base.html" %}
 {% load static %}
-
+ {% block customCSS %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+ {% endblock %} 
+   {% block videoJS %}
+     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+   {% endblock %}
+    {% block videoJSScript %}
+    <script>
+    videojs('my-player', {
+  controls: true,
+  autoplay: false,
+  preload: 'auto',
+  aspectRatio: '9:16'
+});
+    </script>
+    {% endblock %}
 {% block content %}
-{% comment %} <h3>PCourse is {{courses.course.all}}</h3>
-<h3>Video Tag is{{video.course_tag.all}}</h3> {% endcomment %}
+
+
 {% for a in video_tags%}
     {% if a in purchasedCourse_tag%}
       {% if forloop.first %}
-   <div class="container-fluid">
+      
+ <div class="container-fluid bg-dark">
+  <video
+    id="my-video"
+    class="video-js vjs-big-play-centered"
+    controls
+    preload="auto"
+    width="auto"
+    height="auto"
+    aspectRatio="9:16"
+    poster="{{video.video_thumbnail.url}}"
+    data-setup="{  controls: true,
+  autoplay: false,
+  preload: 'auto'}"
+  >
+    <source src="{{video.video_file.url}}" type="video/mp4" />
+    {% comment %} <source src="MY_VIDEO.webm" type="video/webm" /> {% endcomment %}
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank"
+        >supports HTML5 video</a
+      >
+    </p>
+  </video>
+  </div>
+   {% comment %} <div class="container-fluid">
 <div class="h-100 row align-items-center">
 <video width='720' height= '720' controls>
 
@@ -15,13 +56,14 @@
 Your browser does not support the video tag.
 </video>
 </div>
-</div>
+</div> {% endcomment %}
+
  {% endif %}
     {% endif %}
 {% endfor%}
 
 
-
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 {% endblock %}
 
 {% block footer %} 
@@ -29,4 +71,8 @@ Your browser does not support the video tag.
     <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
         </div>
 </footer>
-  </div>{% endblock %}
+  </div>
+  
+  {% endblock %}
+
+  

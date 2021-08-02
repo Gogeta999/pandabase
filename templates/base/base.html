@@ -16,7 +16,7 @@
     {% block videoJS %}{% endblock %}
     {% block videoJSScript %}{% endblock %}
 </head>
-<body  class='pb-5'>
+<body  class='pb-5' >
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
    <a class="navbar-brand" href="{% url 'index'%}">PandaBase</a>
@@ -32,14 +32,12 @@
     </div>
   </div>
 </nav>
-<br>
 {% block content %}
 {% endblock %}
 </body>
-<footer class="text-center">
-    {% block footer %}
+{% block footer %}
        <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
         </div>
-    {% endblock %}</title>
-</footer>
+{% endblock %}</title>
+
 </html>

@@ -50,13 +50,21 @@ class CoursePage(generic.ListView):
         return context
     
 
-# class CourseVideoPage(generic.DetailView):
-#     model = Video
-#     template_name = 'main/course_video.html'
-#     def get_context_data(self, **kwargs):
-#         context = super(CourseVideoPage, self).get_context_data(**kwargs)
-#         context['courses'] = PurchasedCourse.objects.all()
-#         return context
+class CourseVideoPage(generic.DetailView):
+    model = Video
+    template_name = 'main/course_video.html'
+    def get_context_data(self, **kwargs):
+        context = super(CourseVideoPage, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['courses'] = PurchasedCourse.objects.get(user= self.request.user.profile)
+            return context
+        else:
+            return context
+    def get_template_names(self):
+        if self.request.user.is_authenticated:
+            return 'main/course_video.html'
+        else:
+            return 'main/course_demo_video.html'
   
 def courseVideoPage(request, pk):
     video = get_object_or_404(Video, pk=pk)

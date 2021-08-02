@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
+
 <div class="container-fluid">
 <div class="row align-items-start">
 {% for video in object_list%}
  <div class="col-md-4">
-  <a href="{{ video.get_absolute_url }}" method="get">
+  <a href="{% url 'video' video.pk %}" method="get">
           {% for tag in video.course_tag.all%}
           {% if course_id == tag.course_num %}
           <video width='320' height= '240' controls>
@@ -14,7 +15,7 @@
 Your browser does not support the video tag.
 </video> 
 <h5>
- <a href="{{ video.get_absolute_url }}" method="get">Video Name is{{ video.video_name}}</a>
+ <a href="{% url 'video' video.pk %}" method="get">Video Name is{{ video.video_name}}</a>
 </h5>
           {% endif%}
           {% endfor %}

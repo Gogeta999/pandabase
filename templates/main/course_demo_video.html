@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+{% comment %} <h3>Hello {{video.course_tag.all}}</h3> {% endcomment %}
 {% for tag in video.course_tag.all%}
     {% if tag.course_num == 0 %}
    <div class="container-fluid">

@@ -1,18 +1,26 @@
 from django.contrib import admin
+from django.contrib.admin.decorators import display
 from .models import User, Profile, CourseTag,CourseName, Video,PurchasedCourse
 from .forms import AdminCustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin
 
 class CustomUserAdmin(UserAdmin):
     model = User
-    add_form = AdminCustomUserCreationForm
+    # add_form = AdminCustomUserCreationForm
+    list_display = ('username','email')
+    add_fieldsets = (
+        (None, {
+            'fields': ('username', 'email','password1','password2')
+        }),
+    )
+  
     fieldsets = (
         *UserAdmin.fieldsets,
         # (
-        #     'User Status',
+        #     'User Email',
         #     {
         #         'fields': (
-        #             'vip_levels',
+        #             'email',
         #         )
         #     }
         # )

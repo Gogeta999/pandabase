@@ -5,6 +5,10 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
 from django.conf import settings
 import os
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
 class User(AbstractUser):
     email = models.EmailField(unique=True,blank=True)
 
@@ -21,10 +25,19 @@ class Profile(models.Model):
     )
     nickname = models.CharField(max_length= 8, unique= True)
     email = models.EmailField(blank= True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    bio = models.CharField(max_length= 200, )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default = GENDER_CHOICES[3])
+    bio = models.CharField(max_length= 200,)
+
     def __str__(self):
         return self.user.get_username()
+    
+    
+    
+
+    
+    
+    
+
 class CourseName(models.Model):
     course_name = models.CharField(max_length=50, unique= True)
 
@@ -89,4 +102,13 @@ class PurchasedCourse(models.Model):
     # course_names.short_description = "Course Names"
     def __str__(self):
         return str(self.user) + '\'s Purchased Course'
+
+@receiver(post_save, sender= User)
+def create_user_profile(sender, instance, created, **kwargs):
+	if created:
+		Profile.objects.create(user=instance,nickname=instance.username,email=instance.email,gender='H')
+            
+@receiver(post_save, sender= User)
+def save_user_profile(sender, instance, **kwargs):
+	instance.profile.save()
     

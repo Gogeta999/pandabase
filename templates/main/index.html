@@ -68,22 +68,26 @@
   </nav>
 
   {% if user.is_authenticated %}
+  <br>
   <div class="container-fluid">
-    <h1>Name of purchased User is {{ user.username}}</h1>
+    {% comment %} <h1>Name of purchased User is {{ user.username}}</h1> {% endcomment %}
     <div class="row row-cols-1 row-cols-md-3 g-4">
       
       {% for course in object.course.all%}
+    
       <div class="col">
+           {% comment %} <a href="{% url 'course' course.course_num %} " style="text-decoration:none" > {% endcomment %}
         <div class="card h-50">
           <img src="{{course.course_thumbnail.url}}" class="card-img-top" alt="{{STATIC_URL}}default/default-course.jpg">
           <div class="card-body">
-            <h5 class="card-title">Purchase Course is {{course.course_tag}}</h5>
-            <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go {{course.course_num}}</a>
+            <h5 class="card-title">{{course.course_tag}}</h5>
+            <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go</a>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
+    {% comment %} </a> {% endcomment %}
   </div>
 
   {% else %}
@@ -93,7 +97,7 @@
       {% for video in demo_videos%}
  
      <div class="col">
-        <a href="{{ video.get_absolute_url }}" method="get">
+        <a href="{% url 'video' video.pk %}" method="get">
           {% for tag in video.course_tag.all%}
           {% if tag.course_num == 0  %}
           <video width='320' height='240' controls>

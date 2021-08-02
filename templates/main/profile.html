@@ -9,9 +9,33 @@
     <p>{{ object.email }}</p>
     <h1>end for Profile</h1>
 
-    {% comment %} {% for course in object.course %}
-            <li>{{ course.course_tag }}</li>
-            <li>{{ course.course_num }}</li>
-            <li>End</li>
-        {% endfor %} {% endcomment %}
+<div class="container">
+  <div class="form-group">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3 row">
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Nickname" name="username">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-3">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-3">
+          <input type="text" class="form-control" placeholder="Gender" name="gender">
+        </div>
+      </div>
+      <div class="mb-3 row">
+      </div>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" placeholder="Bio" name="bio">
+      </div>
+  </div>
+  <br />
+  <button class="btn btn-secondary">Upload</button>
+</div>
+</div>
 {% endblock %}

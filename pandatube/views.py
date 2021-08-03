@@ -19,13 +19,17 @@ class Index(DetailView, FormView):
     
     def get_object(self):
         if 'pk' not in self.kwargs:
-            return PurchasedCourse.objects.last()
+            if self.request.user.is_authenticated:
+                return PurchasedCourse.objects.get(user=self.request.user.profile)
+            else:
+                return PurchasedCourse.objects.last
         return super(Index, self).get_object()
 
     def get_context_data(self, *args, **kwargs):
         context = super(Index, self).get_context_data(*args, **kwargs)
         context['demo_videos'] = Video.objects.all()
         return context
+
 
 #Use Login From auth.accounts
 # class UserLoginPage(TemplateView):
@@ -39,12 +43,11 @@ class Index(DetailView, FormView):
 #     success_url = reverse_lazy('index')
 
 class UserProfilePage(generic.DetailView, UpdateView):
-    model = Profile
-    # email1 = Profile.objects.all    
+    model = Profile 
     form_class = UserProfileUpdateForm
     template_name = 'main/profile.html'
     
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('login-index')
     def get_initial(self):
        return {"nickname": self.get_object().nickname, "email": self.get_object().email,"gender": self.get_object().gender,"bio": self.get_object().bio }
 
@@ -54,18 +57,6 @@ class UserProfilePage(generic.DetailView, UpdateView):
         context['form'] = self.get_form()
         return context
 
-    # def post(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     form = self.get_form()
-
-    #     if form.is_valid():
-    #         return self.form_valid(form)
-    #     else:
-    #         return self.form_invalid(form)
-
-    # def form_valid(self, form):
-    #     form.save()
-    #     return super(UserProfilePage, self).form_valid(form)
 
 
 class CoursePage(generic.ListView):

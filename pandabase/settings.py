@@ -15,6 +15,7 @@ SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^
 DEBUG = True
 
 ALLOWED_HOSTS =['*']
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "False"
 
 
 # Application definition
@@ -121,6 +122,7 @@ LOGOUT_REDIRECT_URL = 'index'
 STATIC_URL = '/static/'
 #When Development
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]

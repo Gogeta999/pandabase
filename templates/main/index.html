@@ -27,7 +27,7 @@
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' user.pk%}">Profile</a>
+            <a class="nav-link" href="{% url 'profile' object.pk%}">Profile</a>
             {% comment %} Should not open for Regsiter Route for normal user {% endcomment %}
             {% comment %}
           <li class="nav-item">
@@ -70,7 +70,6 @@
   {% if user.is_authenticated %}
   <br>
   <div class="container-fluid">
-    {% comment %} <h1>Name of purchased User is {{ user.username}}</h1> {% endcomment %}
     <div class="row row-cols-1 row-cols-md-3 g-4">
       
       {% for course in object.course.all%}

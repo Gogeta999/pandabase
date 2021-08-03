@@ -38,7 +38,7 @@ class Index(DetailView, FormView):
 #     template_name = 'registration/signup.html'
 #     success_url = reverse_lazy('index')
 
-class UserProfilePage(generic.DetailView, FormView):
+class UserProfilePage(generic.DetailView, UpdateView):
     model = Profile
     # email1 = Profile.objects.all    
     form_class = UserProfileUpdateForm
@@ -48,18 +48,25 @@ class UserProfilePage(generic.DetailView, FormView):
     def get_initial(self):
        return {"nickname": self.get_object().nickname, "email": self.get_object().email,"gender": self.get_object().gender,"bio": self.get_object().bio }
 
+
     def get_context_data(self, **kwargs):
         context = super(UserProfilePage, self).get_context_data(**kwargs)
         context['form'] = self.get_form()
         return context
-    def form_valid(self, form):
-        # form.instance.id = self.kwargs['pk']
-        return super().form_valid(form)
+
     # def post(self, request, *args, **kwargs):
-    #     return FormView.post(self, request, *args, **kwargs)
+    #     self.object = self.get_object()
+    #     form = self.get_form()
+
+    #     if form.is_valid():
+    #         return self.form_valid(form)
+    #     else:
+    #         return self.form_invalid(form)
+
     # def form_valid(self, form):
-    #     # form.instance. = self.kwargs['pk']
-    #     return super().form_valid(form)
+    #     form.save()
+    #     return super(UserProfilePage, self).form_valid(form)
+
 
 class CoursePage(generic.ListView):
     model = Video

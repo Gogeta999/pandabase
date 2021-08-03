@@ -102,7 +102,7 @@ class PurchasedCourse(models.Model):
     # course_names.short_description = "Course Names"
     def __str__(self):
         return str(self.user) + '\'s Purchased Course'
-
+#Auto Create Course Tag while creating Course Name
 @receiver(post_save, sender= CourseName)
 def create_courseTag(sender, instance, created, **kwargs):
 	if created:
@@ -111,13 +111,21 @@ def create_courseTag(sender, instance, created, **kwargs):
 def save_courseTag(sender, instance, **kwargs):
 	instance.coursetag.save()
 
-
+#Auto Create Profile while creating User
 @receiver(post_save, sender= User)
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:
-		Profile.objects.create(user=instance,nickname=instance.username,email=instance.email,gender='H')
-            
+		Profile.objects.create(user=instance,nickname=instance.username,email=instance.email,gender='H')         
 @receiver(post_save, sender= User)
 def save_user_profile(sender, instance, **kwargs):
 	instance.profile.save()
+
+#Auto Create PurchasdCourse while creating User
+@receiver(post_save, sender= Profile)
+def create_user_purchasedcourse(sender, instance, created, **kwargs):
+	if created:
+		PurchasedCourse.objects.create(user=instance)         
+@receiver(post_save, sender= Profile)
+def save_user_purchasedcourse(sender, instance, **kwargs):
+	instance.purchasedcourse.save()
     

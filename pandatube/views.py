@@ -134,5 +134,12 @@ class SearchVideosResultsPage(generic.ListView):
             Q(video_name__icontains=query) 
         )
         return object_list
+    def get_context_data(self, **kwargs):
+        context = super(SearchVideosResultsPage, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['courses'] = PurchasedCourse.objects.get(user= self.request.user.profile)
+            return context
+        else:
+            return context
 
 

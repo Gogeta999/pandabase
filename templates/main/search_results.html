@@ -6,9 +6,32 @@
     <h4>Video Results</h4>
   </div>
 </div>
-
+  {% if user.is_authenticated %}
   <ul>
     {% for video in object_list %}
+
+
+    {% for a in video.course_tag.all%}
+    {% if a in courses.course.all%}
+      {% if forloop.first %}
+    <div class='container-fluid'>
+      <div class="d-flex justify-content-center">
+        <!-- <li> -->
+          <a href="{% url 'video' video.pk %}" method="get">{{video.video_name}}</a>
+        <!-- </li> -->
+      </div>
+    </div>
+{% endif %}
+{% endif %}
+{% endfor%}
+
+    {% endfor %}
+  </ul>
+    {% comment %} {% else %}
+      <ul>
+    {% for video in object_list %}
+        {% for tag in video.course_tag.all%}
+            {% if tag.course_num == 0  %}
     <div class='container-fluid'>
       <div class="d-flex justify-content-center">
         <!-- <li> -->
@@ -16,7 +39,9 @@
         <!-- </li> -->
       </div>
     </div>
-
+        {% endif%}
+   {% endfor %}
     {% endfor %}
-  </ul>
+  </ul> {% endcomment %}
+      {% endif %}
 {% endblock %}

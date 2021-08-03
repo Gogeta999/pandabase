@@ -26,7 +26,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length= 8, unique= True)
     email = models.EmailField(blank= True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default = GENDER_CHOICES[3])
-    bio = models.CharField(max_length= 200,)
+    bio = models.CharField(max_length= 200,blank=True,null=True)
 
     def __str__(self):
         return self.user.get_username()
@@ -51,7 +51,7 @@ def course_thumbnail_path(instance,filename):
 class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
     course_tag = models.OneToOneField(CourseName,on_delete= models.PROTECT,unique=True)
-    course_num = models.IntegerField(null= False, unique= True)
+    course_num = models.IntegerField(null= True, unique= True,blank=True)
     course_thumbnail = models.FileField(upload_to= course_thumbnail_path,default='/default/default-course.jpg')
     def __str__(self):
         return str(self.course_tag)
@@ -102,6 +102,15 @@ class PurchasedCourse(models.Model):
     # course_names.short_description = "Course Names"
     def __str__(self):
         return str(self.user) + '\'s Purchased Course'
+
+@receiver(post_save, sender= CourseName)
+def create_courseTag(sender, instance, created, **kwargs):
+	if created:
+		CourseTag.objects.create(course_tag=instance)
+@receiver(post_save, sender= CourseName)
+def save_courseTag(sender, instance, **kwargs):
+	instance.coursetag.save()
+
 
 @receiver(post_save, sender= User)
 def create_user_profile(sender, instance, created, **kwargs):

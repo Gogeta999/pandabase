@@ -8,7 +8,7 @@
   <title>Welcome to Panda Base</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
   
 </head>
 
@@ -77,8 +77,8 @@
     
       <div class="col">
            {% comment %} <a href="{% url 'course' course.course_num %} " style="text-decoration:none" > {% endcomment %}
-        <div class="card h-50">
-          <img src="{{course.course_thumbnail.url}}" class="card-img-top" alt="{{STATIC_URL}}default/default-course.jpg">
+        <div class="card">
+          <img src="{{course.course_thumbnail.url}}" class="card-img-top"  alt="{{STATIC_URL}}default/default-course.jpg" height="300px">
           <div class="card-body">
             <h5 class="card-title">{{course.course_tag}}</h5>
             <a href="{% url 'course' course.course_num %}" class="btn btn-primary">Go</a>

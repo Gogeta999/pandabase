@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.decorators import display
 from .models import User, Profile, CourseTag,CourseName, Video,PurchasedCourse
-from .forms import AdminCustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin
 
 class CustomUserAdmin(UserAdmin):

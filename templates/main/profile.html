@@ -2,40 +2,23 @@
 {% load static %}
 
 {% block content %}
-<h1>Hello  {{ user.username }}</h1>
-<h1>ID  {{ user.id }}</h1>
+{% comment %} <h1>Hello  {{ user.username }}</h1>
+<h1>ID  {{ user.id }}</h1> {% endcomment %}
  {% comment %} Below Is User Profile Test {% endcomment %}
-   <h1>{{ object.nickname }}</h1>
-    <p>{{ object.email }}</p>
-    <h1>end for Profile</h1>
+   {% comment %} <p>Profile:{{object.user}}</p>
+       <p>Nickname:{{ object.nickname }}</p>
+    <p>Email:{{ object.email }}</p>
+        <p>Gender:{{ object.get_gender_display }}</p>
+            <p>Bio:{{ object.bio }}</p> {% endcomment %}
+
 
 <div class="container">
   <div class="form-group">
-    <form method="POST">
+    <form action="{% url 'profile' object.pk %}" method="POST">
       {% csrf_token %}
-      <div class="mb-3 row">
-        <div class="col-sm-3">
-          <input type="text" class="form-control" placeholder="Nickname" name="username">
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <div class="col-sm-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <div class="col-sm-3">
-          <input type="text" class="form-control" placeholder="Gender" name="gender">
-        </div>
-      </div>
-      <div class="mb-3 row">
-      </div>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" placeholder="Bio" name="bio">
-      </div>
-  </div>
-  <br />
-  <button class="btn btn-secondary">Upload</button>
+      {{ form.as_p }}
+  <button type="submit">Upload</button>
+ 
 </div>
 </div>
 {% endblock %}

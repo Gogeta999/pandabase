@@ -16,9 +16,11 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS =['*']
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,167.71.196.112").split(",")
+DEVELOPMENT_MODE = False
+
 
 # Application definition
 
@@ -72,11 +74,14 @@ WSGI_APPLICATION = 'pandabase.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'pandabase',
+            'USER': 'ash',
+            'PASSWORD': '1412wins',
+            'HOST': 'localhost',
+            'PORT': '',
         }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -113,7 +118,7 @@ USE_TZ = True
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'LOCATION': '167.71.196.112::11211',
     }
 }
 
@@ -125,12 +130,11 @@ LOGOUT_REDIRECT_URL = 'index'
 
 STATIC_URL = '/static/'
 #When Deployment
-# if DEVELOPMENT_MODE is False:
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#         os.path.join(BASE_DIR, 'static'),
+# ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

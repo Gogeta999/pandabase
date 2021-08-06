@@ -10,11 +10,11 @@
     PandaBase
     {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 {% comment %} Video JS {% endcomment %}     
   {% block customCSS %}{% endblock %}     
     {% block videoJS %}{% endblock %}
-    {% block videoJSScript %}{% endblock %}
+
 </head>
 <body  class='pb-5' >
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,18 +23,19 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {% comment %} <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
         </li>        
       </ul>
-    </div>
+    </div> {% endcomment %}
   </div>
 </nav>
 {% block content %}
 {% endblock %}
 </body>
+    {% block videoJSScript %}{% endblock %}
 {% block footer %}
        <nav class="navbar fixed-bottom navbar-light bg-light"><p>Copyright ©Panda Base Myanmar. All rights reserved.</p></div>
         </div>

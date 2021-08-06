@@ -1,22 +1,20 @@
 {% extends "base/base.html" %}
 {% load static %}
+
  {% block customCSS %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/video-js.min.css' %}">
+    {% comment %} <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" /> {% endcomment %}
  {% endblock %} 
    {% block videoJS %}
-     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+   {% comment %} <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script> {% endcomment %}
+   <script src="{% static 'js/video.min.js' %}"></script>
+      {% comment %} <script src="{% static 'js/videojs-http-streaming.min.js' %}"></script>  {% endcomment %}
    {% endblock %}
-    {% block videoJSScript %}
-    <script>
-    videojs('my-player', {
-  controls: true,
-  autoplay: false,
-  preload: 'auto',
-});
 
-    </script>
-    {% endblock %}
+
 {% block content  %}
+{% comment %} <h1>hi</h1> {% endcomment %}
 {% comment %} For Detail View {% endcomment %}
 {% for a in video.course_tag.all%}
     {% if a in courses.course.all%}
@@ -25,16 +23,18 @@
       {% if forloop.first %}
       <div class="video-container" oncontextmenu="return false;">
   <video
-    id="my-video"
+    id="my-player"
     class="video-js vjs-big-play-centered video-16-9"
     controls
     preload="auto"
-    
-     style="width: 100%; height: 100%"
+    currentTime = "0"
+    controlsList="nodownload"
+    style="width: 100%; height: 100%"
     poster="{{video.video_thumbnail.url}}"
-    data-setup="{  controls: true,
-  autoplay: false,
-  preload: 'auto',
+    data-setup="{  
+    controls: true,
+  autoplay: true,
+  
 }"
   >
     <source src="{{video.video_file.url}}" type="video/mp4"/>
@@ -48,23 +48,34 @@
     </p>
   </video>
 </div>
-   {% comment %} <div class="container-fluid">
-<div class="h-100 row align-items-center">
-<video width='720' height= '720' controls>
-
-<source src="{{video.video_file.url}}" type='video/mp4'>
-Your browser does not support the video tag.
-</video>
-</div>
-</div> {% endcomment %}
 
  {% endif %}
     {% endif %}
 {% endfor%}
-
-
-<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 {% endblock %}
+
+    {% block videoJSScript %}
+     {% comment %} <script src="{% static 'js/video.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/video.min.js' %}"></script>
+    <script src="{% static 'js/videojs-http-streaming.min.js' %}"></script> {% endcomment %}
+    <script>
+
+
+ var options = {};
+
+var player = videojs('my-player', options, function onPlayerReady() {
+  videojs.log('Your player is ready!');
+  // In this context, `this` is the player that was created by Video.js.
+  this.play();
+
+  // How about an event listener?
+  this.on('ended', function() {
+    videojs.log('End?!');
+  });
+});
+
+    </script>
+    {% endblock %}
 
 {% block footer %} 
 <footer class="text-center">

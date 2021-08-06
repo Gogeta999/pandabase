@@ -1,20 +1,24 @@
-from pathlib import Path
 import os
+import sys
+from pathlib import Path
 # from django.core.cache.backends import memcached
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+HASHIDS_SALT = "Ash999"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-HASHIDS_SALT = "Ash999"
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
+from django.core.management.utils import get_random_secret_key
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+# SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS =['*']
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,167.71.196.112").split(",")
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "False"
 
 
@@ -29,9 +33,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pandatube',
 ]
+
 AUTH_USER_MODEL = 'pandatube.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #Use nginx not whitenoise
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,13 +72,26 @@ WSGI_APPLICATION = 'pandabase.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'pandabase',
+            'USER': 'ash',
+            'PASSWORD': '1412wins',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
@@ -120,11 +140,12 @@ LOGOUT_REDIRECT_URL = 'index'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#When Development
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#When Deployment
+if DEVELOPMENT_MODE is False:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_URL = '/media/'

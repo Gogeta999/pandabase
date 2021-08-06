@@ -1,11 +1,11 @@
 {% extends "base/base.html" %}
 {% block title %}PandaBase{% endblock %}
 {% block content %}
-<div class='container-fluid'>
+{% comment %} <div class='container-fluid'>
   <div class="d-flex justify-content-center">
     <h4>Video Results</h4>
   </div>
-</div>
+</div> {% endcomment %}
   {% if user.is_authenticated %}
   <ul>
     {% for video in object_list %}
@@ -14,11 +14,17 @@
     {% for a in video.course_tag.all%}
     {% if a in courses.course.all%}
       {% if forloop.first %}
+   
     <div class='container-fluid'>
       <div class="d-flex justify-content-center">
-        <!-- <li> -->
-          <a href="{% url 'video' video.pk %}" method="get">{{video.video_name}}</a>
-        <!-- </li> -->
+             <a href="{% url 'video' video.pk %}" method="get">
+     <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{video.video_thumbnail.url}}" alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">{{video.video_name}}</p>
+  </div>
+</div>
+</a>
       </div>
     </div>
 {% endif %}

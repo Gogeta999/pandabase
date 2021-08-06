@@ -47,7 +47,7 @@ class UserProfilePage(generic.DetailView, UpdateView):
     form_class = UserProfileUpdateForm
     template_name = 'main/profile.html'
     
-    success_url = reverse_lazy('login-index')
+    success_url = reverse_lazy('index')
     def get_initial(self):
        return {"nickname": self.get_object().nickname, "email": self.get_object().email,"gender": self.get_object().gender,"bio": self.get_object().bio }
 

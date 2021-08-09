@@ -51,7 +51,7 @@ def course_thumbnail_path(instance,filename):
 class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
     course_tag = models.OneToOneField(CourseName,on_delete= models.PROTECT,unique=True)
-    course_num = models.IntegerField(null= True, unique= True,blank=True)
+    course_num = models.CharField(null= True, unique= True,blank=True,max_length=50)
     course_thumbnail = models.FileField(default='media/default/default-course.jpg')
     def __str__(self):
         return str(self.course_tag)

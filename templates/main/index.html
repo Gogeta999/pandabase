@@ -81,7 +81,7 @@
           <div class="card-body">
             <h5 class="card-title">{{course.course_tag}}</h5>
 	    <h3> {{ course.course_thumbnail.url}} </h3>
-            <a href="{% url 'course' 1 %}" class="btn btn-primary">Go</a>
+            <a href="{% url 'course' course.pk %}" class="btn btn-primary">Go</a>
           </div>
         </div>
       </div>

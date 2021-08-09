@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pandatube',
+    'storages',
 ]
 
 AUTH_USER_MODEL = 'pandatube.User'
@@ -104,6 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+AWS_ACCESS_KEY_ID = 'pandabse-access-key'
+AWS_SECRET_ACCESS_KEY = 'yd539fa69d9c46ef9a7ade9c8614c9beeaaf6b1196e0c0e0e9455c5e9cfdecf06'
+AWS_STORAGE_BUCKET_NAME = 'pandabase'
+AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'pandabase'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -136,8 +145,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #         os.path.join(BASE_DIR, 'static'),
 # ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

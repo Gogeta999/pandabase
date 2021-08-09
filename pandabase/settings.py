@@ -16,9 +16,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,167.71.196.112").split(",")
+ALLOWED_HOSTS = ["ashblast.com","www.ashblast.com","127.0.0.1","167.71.196.112"]
 DEVELOPMENT_MODE = False
 
 
@@ -78,8 +78,8 @@ DATABASES = {
             'NAME': 'pandabase',
             'USER': 'ash',
             'PASSWORD': '1412wins',
-            'HOST': 'localhost',
-            'PORT': '',
+            'HOST': 'ash-db-postgresql-sgp1-do-user-9636816-0.b.db.ondigitalocean.com',
+            'PORT': '25060',
         }
 }
 

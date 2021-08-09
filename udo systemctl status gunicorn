@@ -1,0 +1,17 @@
+[0;1;31mWarning:[0m The unit file, source configuration file or drop-ins of gunicorn.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+● gunicorn.service - gunicorn daemon
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; enabled; vendor preset: enabled)
+     Active: inactive (dead) since Sun 2021-08-08 14:18:52 UTC; 26min ago
+TriggeredBy: [0;1;32m●[0m gunicorn.socket
+   Main PID: 5465 (code=exited, status=0/SUCCESS)
+
+Aug 08 14:12:30 Ash-20 gunicorn[5487]: [2021-08-08 14:12:30 +0000] [5487] [INFO] Booting worker with pid: 5487
+Aug 08 14:12:30 Ash-20 gunicorn[5489]: [2021-08-08 14:12:30 +0000] [5489] [INFO] Booting worker with pid: 5489
+Aug 08 14:12:30 Ash-20 gunicorn[5490]: [2021-08-08 14:12:30 +0000] [5490] [INFO] Booting worker with pid: 5490
+Aug 08 14:18:51 Ash-20 gunicorn[5487]: [2021-08-08 14:18:51 +0000] [5487] [INFO] Worker exiting (pid: 5487)
+Aug 08 14:18:51 Ash-20 gunicorn[5465]: [2021-08-08 14:18:51 +0000] [5465] [INFO] Handling signal: term
+Aug 08 14:18:51 Ash-20 gunicorn[5489]: [2021-08-08 14:18:51 +0000] [5489] [INFO] Worker exiting (pid: 5489)
+Aug 08 14:18:51 Ash-20 gunicorn[5465]: [2021-08-08 14:18:51 +0000] [5465] [WARNING] Worker with pid 5489 was terminated due to signal 15
+Aug 08 14:18:51 Ash-20 gunicorn[5490]: [2021-08-08 14:18:51 +0000] [5490] [INFO] Worker exiting (pid: 5490)
+Aug 08 14:18:52 Ash-20 gunicorn[5465]: [2021-08-08 14:18:52 +0000] [5465] [INFO] Shutting down: Master
+Aug 08 14:18:52 Ash-20 systemd[1]: gunicorn.service: Succeeded.

@@ -78,8 +78,8 @@ DATABASES = {
             'NAME': 'pandabase',
             'USER': 'ash',
             'PASSWORD': '1412wins',
-            'HOST': 'ash-db-postgresql-sgp1-do-user-9636816-0.b.db.ondigitalocean.com',
-            'PORT': '25060',
+            'HOST': 'localhost',
+            'PORT': '',
         }
 }
 

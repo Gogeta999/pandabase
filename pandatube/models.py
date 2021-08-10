@@ -52,7 +52,7 @@ class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
     course_tag = models.OneToOneField(CourseName,on_delete= models.PROTECT,unique=True)
     course_num = models.IntegerField(null= True, unique= True,blank=True)
-    course_thumbnail = models.FileField(default='https://pandabase.sgp1.cdn.digitaloceanspaces.com/pandabase/default/default/default-video.jpg')
+    course_thumbnail = models.FileField(upload_to= course_thumbnail_path, default='default/default-video.jpg')
     def __str__(self):
         return str(self.course_tag)
 
@@ -73,8 +73,8 @@ class Video(models.Model):
     course_name = models.ForeignKey(CourseName, on_delete= models.PROTECT)
     video_name = models.CharField(max_length=50)
     course_tag = models.ManyToManyField(CourseTag, blank= False)
-    video_file = models.FileField(blank=True,null=True,validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
-    video_thumbnail = models.ImageField(default = 'media/default/default-video.jpg')
+    video_file = models.FileField(upload_to= video_path, blank=True,null=True,validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+    video_thumbnail = models.ImageField(upload_to = video_thumbnails_path,default = 'media/default/default-video.jpg')
     date_uploaded = models.DateTimeField(default=timezone.now)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)

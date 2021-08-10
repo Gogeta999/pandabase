@@ -6,7 +6,7 @@
 <div class="container-fluid"  oncontextmenu="return false;">
 <div class="row align-items-start">
 {% for video in object_list%}
- <div class="col-md-4">
+<div class="col-md-4">
   <a href="{% url 'video' video.pk %}" method="get">
           {% for tag in video.course_tag.all%}
           {% if course_id == tag.course_num %}

@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^
 # SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["ashblast.com","www.ashblast.com","127.0.0.1","167.71.196.112"]
 DEVELOPMENT_MODE = False

@@ -1,26 +1,36 @@
 {% extends "base/base.html" %}
 {% load static %}
 
+ {% block customCSS %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/video-js.min.css' %}">
+ {% endblock %} 
+   {% block videoJS %}
+   <script src="{% static 'js/video.min.js' %}"></script>
+   {% endblock %}
+
 {% block content %}
 
 <div class="container-fluid"  oncontextmenu="return false;">
 <div class="row align-items-start">
 {% for video in object_list%}
+
 <div class="col-md-4">
-  <a href="{% url 'video' video.pk %}" method="get">
+ <a class="text-reset" href="{% url 'video' video.pk %}" style="text-decoration:none" method="get">
           {% for tag in video.course_tag.all%}
           {% if course_id == tag.course_num %}
-          <video width='320' height= '240' controls>
+          <video  id="my-player" disablePictureInPicture preload="auto" poster="{{video.video_thumbnail.url}}" currentTime = "0" controlsList="nodownload" width='320' height= '240' controls>
 <source src="{{video.video_file.url}}" type='video/mp4'>
 Your browser does not support the video tag.
 </video> 
 <h5>
- <a href="{% url 'video' video.pk %}" method="get">Video Name is{{ video.video_name}}</a>
+{{ video.video_name}}
 </h5>
           {% endif%}
           {% endfor %}
-             </a>
+            </a>
               </div>
+               
            
 {% endfor %}
 </div>

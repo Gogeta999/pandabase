@@ -52,7 +52,10 @@ class CourseTag(models.Model):
     course_id = models.AutoField(primary_key= True)
     course_tag = models.OneToOneField(CourseName,on_delete= models.PROTECT,unique=True)
     course_num = models.IntegerField(null= True, unique= True,blank=True)
+    course_subtitle = models.CharField(max_length=30,blank=True)
+    course_describe = models.TextField(blank=True)
     course_thumbnail = models.FileField(upload_to= course_thumbnail_path, default='default/default-course.jpg')
+    
     def __str__(self):
         return str(self.course_tag)
 

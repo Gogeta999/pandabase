@@ -4,12 +4,9 @@
  {% block customCSS %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/video-js.min.css' %}">
-    {% comment %} <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" /> {% endcomment %}
  {% endblock %} 
    {% block videoJS %}
-   {% comment %} <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script> {% endcomment %}
    <script src="{% static 'js/video.min.js' %}"></script>
-      {% comment %} <script src="{% static 'js/videojs-http-streaming.min.js' %}"></script>  {% endcomment %}
    {% endblock %}
 
 
@@ -55,9 +52,6 @@
 {% endblock %}
 
     {% block videoJSScript %}
-     {% comment %} <script src="{% static 'js/video.js' %}"></script> {% endcomment %}
-    {% comment %} <script src="{% static 'js/video.min.js' %}"></script>
-    <script src="{% static 'js/videojs-http-streaming.min.js' %}"></script> {% endcomment %}
     <script>
 
 

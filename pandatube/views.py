@@ -64,6 +64,7 @@ class CoursePage(generic.ListView):
     template_name = 'main/course.html'
     def get_context_data(self, *args, **kwargs):
         context = super(CoursePage, self).get_context_data(*args, **kwargs)
+        context['courses'] = PurchasedCourse.objects.get(user= self.request.user.profile)
         context['course_id'] = self.kwargs['pk']
         return context
     

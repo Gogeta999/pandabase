@@ -142,16 +142,9 @@ DEFAULT_FILE_STORAGE = 'pandatube.custom_storage.MediaStorage'
 
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 MEDIA_ROOT = 'mdeia/'
+
 STATIC_URL = '/static/'
-#When Deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# STATICFILES_DIRS = [
-#         os.path.join(BASE_DIR, 'static'),
-# ]
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

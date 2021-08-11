@@ -18,9 +18,7 @@ static/Asuka.jpg
 *.pyc
 __pycache__
 db.sqlite3
-# Media File But wanna Save Default Photos #
-media/course_thumbnail
-media/course_videos
+media
 videos_uploaded
 uploded_files
  

@@ -80,8 +80,7 @@
           <img src="{{course.course_thumbnail.url}}" class="card-img-top"  alt="{{STATIC_URL}}default/default-course.jpg" height="300px">
           <div class="card-body">
             <h5 class="card-title">{{course.course_tag}}</h5>
-	    <h3> {{ course.course_thumbnail.url}} </h3>
-            <a href="{% url 'course' course.pk %}" class="btn btn-primary">Go</a>
+            <a href="{% url 'course' course.course_num course.pk %}" class="btn btn-primary">Go</a>
           </div>
         </div>
       </div>

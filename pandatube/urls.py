@@ -9,7 +9,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     # path(r'<int:pk>/', views.UnloginIndex.as_view(),name='login-index'),
     path(r'profile/<int:pk>/', views.UserProfilePage.as_view(), name='profile'),
-    path(r'course/<hashid:pk>/', login_required(views.CoursePage.as_view()), name='course'),
+    path(r'course<int:coursenum>/<hashid:pk>/', login_required(views.CoursePage.as_view()), name='course'),
     path(r'course/video/<hashid:pk>/', views.CourseVideoPage.as_view(), name='video'),
     path('search', login_required(views.SearchVideosResultsPage.as_view()), name='search_videos'),
 

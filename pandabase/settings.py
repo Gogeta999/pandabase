@@ -1,7 +1,6 @@
 import os
 import sys
 from pathlib import Path
-import custom_storage
 # from django.core.cache.backends import memcached
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,8 +11,7 @@ HASHIDS_SALT = "Ash999"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
-from django.core.management.utils import get_random_secret_key
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 # SECRET_KEY = 'django-insecure-3q=2)pw@!yop#5&7s4(-yx5g*(7y)=rv&o0ykk*5zg)euy54)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -106,15 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
-AWS_ACCESS_KEY_ID = 'pandabse-access-key'
-AWS_SECRET_ACCESS_KEY = 'yd539fa69d9c46ef9a7ade9c8614c9beeaaf6b1196e0c0e0e9455c5e9cfdecf06'
-AWS_STORAGE_BUCKET_NAME = 'pandabase'
-AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_LOCATION = 'pandabase'
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -138,6 +127,21 @@ LOGOUT_REDIRECT_URL = 'index'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+AWS_ACCESS_KEY_ID = 'LGWGNE7XMBWGLYHFURX5'
+AWS_SECRET_ACCESS_KEY = 'Lyp4SiImqWomZ4J3Q2ThyYIrWYD6JV1Je1ByHFHVVQk'
+AWS_STORAGE_BUCKET_NAME = 'pandabase'
+AWS_S3_ENDPOINT_URL = 'https://sgp1.digitaloceanspaces.com'
+AWS_S3_CUSTOM_DOMAIN = 'pandabase.ashblast.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = '/pandabase/media'
+DEFAULT_FILE_STORAGE = 'pandatube.custom_storage.MediaStorage'
+
+MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+MEDIA_ROOT = 'mdeia/'
 STATIC_URL = '/static/'
 #When Deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
